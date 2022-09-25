@@ -1,0 +1,42 @@
+{{template "base" .}}
+{{define "content"}}
+	<div class="container">
+		<div class="row">
+			<div class="col">
+				<img src="/static/images//marjors-suite.png" class="img-fluid img-thumbnail mx-auto d-block room-image" alt="room-image">
+			</div>
+		</div>
+		<div class="row">
+			<div class="col">
+				<h1 class="text-center mt-4">Japanese Delight</h1>
+				<p>The place to know the truth about humanity and aliens in the wilder extincts.The place to know the truth about humanity and aliens in the wilder extinctsThe place to know the truth about humanity and aliens in the wilder extinctsThe place to know the truth about humanity and aliens in the wilder extincts.The place to know the truth about humanity and aliens in the wilder extinctsThe place to know the truth about humanity and aliens in the wilder extinctsThe place to know the truth about humanity and aliens in the wilder extincts.
+				</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="col text-center">
+				<a id="check-availablity-btn" href="#!" class="btn btn-success">Check Availability</a>
+			</div>
+		</div>
+	</div>
+{{end}}
+
+{{define "js"}}
+	<script>
+		document.getElementById("check-availablity-btn").addEventListener("click", function(){
+			let html = `
+			 <form style="overflow-x: hidden;" id="check-availablity-form" class="needs-validation" action="" method="post" novalidate>
+					<div class="row row-cols-lg-2" id="reservation-dates-modal">
+						<div class="col">
+							<input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival" autocomplete="off">
+						</div>
+						<div class="col">
+							<input disabled  required class="form-control" type="text" name="end" id="end" placeholder="Departure" autocomplete="off">  
+						</div>
+					</div>
+			 </form>
+			`
+			attention.dateViewer({msg: html, title: "Select the dates"});
+		});
+	</script>
+{{end}}

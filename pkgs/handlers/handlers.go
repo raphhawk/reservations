@@ -44,3 +44,28 @@ func (re *Repository) About(w http.ResponseWriter, r *http.Request) {
 		StringMap: stringMap,
 	})
 }
+
+// Reservation is the about reservations handler
+func (re *Repository) Reservation(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "make-reservation.page.tmpl", &models.TemplateData{})
+}
+
+// Ja is the Japanese Delight page handler
+func (re *Repository) Ja(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "ja.page.tmpl", &models.TemplateData{})
+}
+
+// Ke is the Kerala Backwaters page handler
+func (re *Repository) Ke(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "ke.page.tmpl", &models.TemplateData{})
+}
+
+// Availablity is the search-availablity page handler
+func (re *Repository) Availablity(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "search-availablity.page.tmpl", &models.TemplateData{})
+}
+
+// Contact is the contact page handler
+func (re *Repository) Contact(w http.ResponseWriter, r *http.Request) {
+	render.RenderTemplate(w, "contact.page.tmpl", &models.TemplateData{})
+}
