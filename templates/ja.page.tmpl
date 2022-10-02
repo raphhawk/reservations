@@ -26,6 +26,7 @@
 		document.getElementById("check-availablity-btn").addEventListener("click", function(){
 			let html = `
 			 <form style="overflow-x: hidden;" id="check-availablity-form" class="needs-validation" action="" method="post" novalidate>
+					<input type="hidden" name="csrf_token" value="{{.CSRFtoken}}">
 					<div class="row row-cols-lg-2" id="reservation-dates-modal">
 						<div class="col">
 							<input disabled required class="form-control" type="text" name="start" id="start" placeholder="Arrival" autocomplete="off">
@@ -36,7 +37,24 @@
 					</div>
 			 </form>
 			`
-			attention.dateViewer({msg: html, title: "Select the dates"});
-		});
+			attention.dateViewer({
+				msg: html,
+				title: "Select the dates",
+				callback: function(result) {
+					console.log("called");
+					let form = document.getElementById("check-availablity-form")
+					let formData = new FormData(form);
+
+					fetch("/search-availablity-json", {
+						method: "post",
+						body: formData,
+					})
+					.then(response => response.json())
+					.then(data => {
+						console.log(data);
+					})
+				}
+			});
+		})
 	</script>
 {{end}}

@@ -8,6 +8,7 @@ import (
 	"net/http"
 	"path/filepath"
 
+	"github.com/justinas/nosurf"
 	"github.com/raphhawk/reservation/pkgs/config"
 	"github.com/raphhawk/reservation/pkgs/models"
 )
@@ -20,12 +21,13 @@ func NewTemplate(a *config.AppConfig) {
 	app = a
 }
 
-func AddDefaultData(td *models.TemplateData) *models.TemplateData {
+func AddDefaultData(td *models.TemplateData, r *http.Request) *models.TemplateData {
+	td.CSRFtoken = nosurf.Token(r)
 	return td
 }
 
 // RenderTemplate renders template from html/template
-func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData) {
+func RenderTemplate(w http.ResponseWriter, r *http.Request, tmpl string, td *models.TemplateData) {
 	var cache map[string]*template.Template
 	if app.UseCache {
 		cache = app.TemplateCache
@@ -36,7 +38,7 @@ func RenderTemplate(w http.ResponseWriter, tmpl string, td *models.TemplateData)
 	if !ok {
 		log.Fatal("Could not get template from template cache")
 	}
-	td = AddDefaultData(td)
+	td = AddDefaultData(td, r)
 	buf := new(bytes.Buffer)
 
 	_ = t.Execute(buf, td)
